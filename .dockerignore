@@ -1,0 +1,11 @@
+node_modules
+allure-report
+allure-results
+.editorconfig
+.eslintignore
+.eslintrc.json
+.gitignore
+.idea
+.prettierrc.js
+gitlab-ci.yaml
+README.md

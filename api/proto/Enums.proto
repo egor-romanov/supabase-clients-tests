@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "supabase.common.v1";
+option java_outer_classname = "Common";
+option objc_class_prefix = "SUPA";
+option go_package = ".;common_v1";
+
+package supabase.v1;
+
+enum PROVIDER {
+  AZURE = 0;
+  SLACK = 1;
+  BITBUCKET = 2;
+  FACEBOOK = 3;
+  GITHUB = 4;
+  GITLAB = 5;
+  GOOGLE = 6;
+  TWITTER = 7;
+  APPLE = 8;
+  DISCORD = 9;
+  TWITCH = 10;
+  SPOTIFY = 12;
+}
+
+enum AUTH_EVENT_TYPE {
+  PASSWORD_RECOVERY = 0;
+  TOKEN_REFRESHED =1;
+  SIGNED_IN = 2;
+  SIGNED_OUT = 3;
+  USER_UPDATED = 4;
+  USER_DELETED = 5;
+}

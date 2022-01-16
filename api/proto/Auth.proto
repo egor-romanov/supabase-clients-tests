@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "supabase.auth-service.v1";
+option java_outer_classname = "AuthService";
+option objc_class_prefix = "SUPA";
+option go_package = ".;authService_v1";
+
+package supabase.v1;
+
+import "AuthDTO.proto";
+import "Common.proto";
+
+service AuthService {
+    rpc SignUp (SignUpRequest)                            returns (SignUpResponse);
+    rpc SignIn (SignInRequest)                            returns (SignInResponse);
+    rpc VerifyOTP (VerifyOTPRequest)                      returns (VerifyOTPResponse);
+    rpc User (Empty)                                      returns (UserResponse);
+    rpc Session (Empty)                                   returns (SessionResponse);
+    rpc RefreshSession (Empty)                            returns (RefreshSessionResponse);
+    rpc Update (UpdateRequest)                            returns (UpdateResponse);
+    rpc SetSession (SetSessionRequest)                    returns (SetSessionResponse);
+    rpc SetAuth (SetAuthRequest)                          returns (SetAuthResponse);
+    rpc GetSessionFromUrl (GetSessionFromUrlRequest)      returns (GetSessionFromUrlResponse);
+    rpc SignOut (Empty)                                   returns (EmptyResponse);
+    rpc SubscribeAuthStateChange (Empty)                  returns (stream SubscriveAuthResponse);
+    rpc UnsubscribeAuthStateChange (StringId)             returns (EmptyResponse);
+}

@@ -1,0 +1,208 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "supabase.auth-service.v1";
+option java_outer_classname = "AuthService";
+option objc_class_prefix = "SUPA";
+option go_package = ".;authService_v1";
+
+package supabase.v1;
+
+import "Common.proto";
+import "Enums.proto";
+
+message SignUpRequest {
+    UserCredentials userCredentials = 1;
+    SignUpOptions options = 2;
+}
+
+message UserCredentials {
+    string email = 1;
+    string phone = 2;
+    string password = 3;
+    string refreshToken = 4;
+    PROVIDER provider = 5;
+}
+
+message SignUpOptions {
+    string redirectTo = 1;
+    map<string, string> data = 2;
+}
+
+message SignUpResponse {
+  oneof signUp_one_of {
+    UserSession signUp = 1;
+    Error error = 2;
+  }
+}
+
+message UserSession {
+    User user = 1;
+    Session session = 2;
+}
+
+message User {
+    string id = 1;
+    message AppMetadata {
+      string provider = 1;
+      map<string, string> data = 2;
+    }
+    message UserMetadata {
+      map<string, string> data = 1;
+    }
+    string aud = 2;
+    string confirmation_sent_at = 3;
+    string recovery_sent_at = 4;
+    string invited_at = 5;
+    string action_link = 6;
+    string email = 7;
+    string phone = 8;
+    string created_at = 9;
+    string confirmed_at = 10;
+    string email_confirmed_at = 11;
+    string phone_confirmed_at = 12;
+    string last_sign_in_at = 13;
+    string role = 14;
+    string updated_at = 15;
+    repeated UserIdentity identities = 16;
+}
+
+message UserIdentity {
+    string id = 1;
+    string user_id = 2;
+    map<string, string> identity_data = 3;
+    string provider = 4;
+    string created_at = 5;
+    string last_sign_in_at = 6;
+    string updated_at = 7;
+}
+
+message Session {
+    string provider_token = 1;
+    string access_token = 2;
+    int32 expires_in = 3;
+    int32 expires_at = 4;
+    string refresh_token = 5;
+    string token_type = 6;
+    User user = 7;
+}
+
+message SignInRequest{
+    UserCredentials userCredentials = 1;
+    SignUpOptions options = 2;
+}
+
+message SignInResponse{
+    oneof signIn_one_of {
+      SignIn signIn = 1;
+      Error error = 2;
+    }
+}
+
+message SignIn {
+    PROVIDER provider = 1;
+    Session session = 2;
+    User user = 3;
+    string url = 4;
+}
+
+message VerifyOTPRequest {
+    VerifyOTPParams params = 1;
+    message Options {
+        string redirectTo = 1;
+    }
+}
+
+message VerifyOTPParams {
+    string phone = 1;
+    string token = 2;
+}
+
+message VerifyOTPResponse {
+  oneof verifyOTP_one_of {
+    UserSession data = 1;
+    Error error = 2;
+  }
+}
+
+message UserResponse{
+    User user = 1;
+}
+
+message SessionResponse {
+    Session session = 1;
+}
+
+message RefreshSessionResponse{
+  oneof refreshSession_one_of {
+    UserSession data = 1;
+    Error error = 2;
+  }
+}
+
+message UpdateRequest {
+    UserAttributes attributes = 1;
+}
+
+message UserAttributes {
+    string email = 1;
+    string password = 2;
+    string email_change_token = 3;
+    map<string, string> data = 4;
+}
+
+message UpdateResponse {
+  oneof signUp_one_of {
+    UserSession data = 1;
+    Error error = 2;
+  }
+}
+
+message SetSessionRequest{
+    string refreshToken = 1;
+}
+
+message SetSessionResponse{
+  oneof setSession_one_of {
+    Session session = 1;
+    Error error = 2;
+  }
+}
+
+message SetAuthRequest {
+    string refreshToken = 1;
+}
+
+message SetAuthResponse {
+  oneof setAuth_one_of {
+    Session session = 1;
+    Error error = 2;
+  }
+}
+
+message GetSessionFromUrlRequest{
+    message Options {
+        bool storeSession = 1;
+    }
+}
+
+message GetSessionFromUrlResponse{
+  oneof getSessionFromUrl_one_of {
+    Session session = 1;
+    Error error = 2;
+  }
+}
+
+message SubscriveAuthResponse {
+  oneof subscriveAuth_one_of {
+    SubscriveAuthData data = 1;
+    Error error = 2;
+  }
+}
+
+message SubscriveAuthData{
+    string id = 1;
+    AUTH_EVENT_TYPE event = 2;
+    Session Session = 3;
+}
+

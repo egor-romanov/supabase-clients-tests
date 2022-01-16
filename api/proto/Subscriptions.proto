@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "supabase.subscriptions-service.v1";
+option java_outer_classname = "SubscriptionsService";
+option objc_class_prefix = "SUPA";
+option go_package = ".;SubscriptionsService_v1";
+
+package supabase.v1;
+
+import "Common.proto";
+import "SubscriptionsDTO.proto";
+
+service SubscriptionsService {
+    rpc remove (RealtimeSubscription)                     returns (RemoveSubscriptionResponse);
+    rpc removeAll (Empty)                                 returns (RemoveSubscriptionResponse);
+    rpc List (Empty)                                      returns (ListSubscriptionsResponse);
+}
