@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "supabase.storage-service.v1";
+option java_outer_classname = "StorageService";
+option objc_class_prefix = "SUPA";
+option go_package = ".;storageService_v1";
+
+package supabase.v1;
+
+import "StorageDTO.proto";
+
+service StorageService {
+    rpc Upload (UploadRequest)                            returns (UploadResponse);
+    rpc Update (UploadRequest)                            returns (UploadResponse);
+    rpc Move (MoveRequest)                                returns (MoveResponse);
+    rpc CreateSignedUrl (CreateSignedUrlRequest)          returns (CreateSignedUrlResponse);
+    rpc Download (DownloadRequest)                        returns (DownloadResponse);
+    rpc GetPublicUrl (GetPublicUrlRequest)                returns (GetPublicUrlResponse);
+    rpc Remove (RemoveRequest)                            returns (RemoveResponse);
+    rpc List (ListRequest)                                returns (ListResponse);
+}

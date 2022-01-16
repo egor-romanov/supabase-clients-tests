@@ -1,0 +1,191 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "supabase.storage-service.v1";
+option java_outer_classname = "StorageService";
+option objc_class_prefix = "SUPA";
+option go_package = ".;storageService_v1";
+
+package supabase.v1;
+
+import "Common.proto";
+
+message UploadResponse {
+  oneof uploadData_one_of {
+    UploadData data = 1;
+    Error error = 2;
+  }
+}
+
+message UploadData {
+  string key = 1;
+}
+
+message UploadRequest {
+    string bucketId = 1;
+    string path = 2;
+    FileBody fileBody = 3;
+    FileOptions fileOptions = 4;
+}
+
+message FileBody {
+  oneof fileBody_one_of {
+    bytes buffer = 1;
+    File file = 2;
+    FormData formData = 3;
+    URLSearchParams urlSearchParams = 4;
+    string str = 5;
+  }
+}
+
+message File {
+    int32 lastModified = 1;
+    string name = 2;
+    string webkitRelativePath = 3;
+}
+
+message FormData {
+    map<string, string> prices = 1;
+}
+
+message URLSearchParams {
+    string params = 1;
+}
+
+message FileOptions {
+    string cacheControl = 1;
+    string contentType = 2;
+    bool upsert = 3;
+}
+
+message MoveResponse {
+  oneof moveData_one_of {
+    MoveData data = 1;
+    Error error = 2;
+  }
+}
+
+message MoveData {
+    string message = 1;
+}
+
+message MoveRequest {
+    string bucketId = 1;
+    string fromPath = 2;
+    string toPath = 3;
+}
+
+message CreateSignedUrlResponse {
+  oneof createSignedUrlData_one_of {
+    CreateSignedUrlData data = 1;
+    Error error = 2;
+    string signedURL = 3;
+  }
+}
+
+message CreateSignedUrlData {
+    string signedURL = 1;
+}
+
+message CreateSignedUrlRequest {
+    string bucketId = 1;
+    string path = 2;
+    int32 expiresIn = 3;
+}
+
+message DownloadResponse {
+  oneof download_one_of {
+    bytes data = 1;
+    Error error = 2;
+  }
+}
+
+message DownloadRequest {
+    string path = 1;
+}
+
+message GetPublicUrlResponse {
+  oneof getPublicUrl_one_of {
+    GetPublicUrlData data = 1;
+    Error error = 2;
+    string publicURL = 3;
+  }
+}
+
+message GetPublicUrlData {
+    string publicURL = 1;
+}
+
+message GetPublicUrlRequest {
+    string bucketId = 1;
+    string path = 2;
+}
+
+message RemoveResponse {
+  oneof remove_one_of {
+    FileObjects data = 1;
+    Error error = 2;
+  }
+}
+
+message FileObjects {
+    repeated FileObject fileObjects = 1;
+}
+
+message FileObject {
+    string name = 1;
+    string bucket_id = 2;
+    string owner = 3;
+    string id = 4;
+    string updated_at = 5;
+    string created_at = 6;
+    string last_accessed_at = 7;
+    map<string, string> metadata = 8;
+    Bucket buckets = 9;
+}
+
+message Bucket {
+    string id = 1;
+    string name = 2;
+    string owner = 3;
+    string created_at = 4;
+    string updated_at = 5;
+    bool public = 6;
+}
+
+message RemoveRequest {
+    string bucketId = 1;
+    repeated string paths = 2;
+}
+
+message ListResponse {
+  oneof list_one_of {
+    FileObjects data = 1;
+    Error error = 2;
+  }
+}
+
+message ListRequest {
+    string path = 1;
+    SearchOptions options = 2;
+    FetchParameters parameters = 4;
+}
+
+message SearchOptions {
+    int32 limit = 1;
+    int32 offset = 2;
+    SortBy sortBy = 3;
+}
+
+message SortBy {
+    string column = 1;
+    string order = 2;
+}
+
+message FetchParameters {
+    AbortSignal signal = 1;
+}
+
+message AbortSignal {
+    bool aborted = 1;
+}

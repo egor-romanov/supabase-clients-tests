@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "supabase.common.v1";
+option java_outer_classname = "Common";
+option objc_class_prefix = "SUPA";
+option go_package = ".;common_v1";
+
+package supabase.v1;
+
+message Error {
+  string error = 1;
+  string message = 2;
+  string stack = 3;
+  int32 code = 4;
+  ErrorType type = 5;
+
+  enum ErrorType {
+      INVALID_PARAMS = 0;
+      NOT_CONNECTED = 1;
+      MISTYPE_PARAMS = 2;
+      SUPABASE = 3;
+      TIMEOUT = 4;
+      CLOSE_ENTITY = 5;
+      VALIDATION = 6;
+  }
+}
+
+message Empty {
+}
+
+message EmptyResponse {
+  Error error = 1;
+}
+
+message StringId {
+  string id = 1;
+}
